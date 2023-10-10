@@ -9,9 +9,10 @@ public interface ITrainDto {
      Long getTrainId();
      String getTrainCode();
      String getTrainName();
-     Long getFirstTripId();
-     Long getLastTripId();
-     Date getStartDate();
-     Date getEndDate();
-     Float getTotalDistanceLength();
+     Long getTripId();
+     Timestamp getStartDate();
+     Timestamp getEndDate();
+     Float getDistanceLength();
+     String getFromStation();
+     String getToStation();
 }

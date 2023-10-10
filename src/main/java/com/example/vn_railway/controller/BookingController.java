@@ -3,23 +3,15 @@ package com.example.vn_railway.controller;
 import com.example.vn_railway.common.TrainEnum;
 import com.example.vn_railway.dto.ICoachDto;
 import com.example.vn_railway.dto.ISeatDto;
-import com.example.vn_railway.dto.ITrainDto;
-import com.example.vn_railway.model.train.Coach;
-import com.example.vn_railway.model.train.Train;
+import com.example.vn_railway.dto.TrainResponse;
 import com.example.vn_railway.service.train.IChairService;
 import com.example.vn_railway.service.train.ICoachService;
 import com.example.vn_railway.service.train.ITrainService;
 import com.example.vn_railway.service.trip.ISeatService;
-import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -44,7 +36,7 @@ public class BookingController {
         //Validate
 
 
-        List<ITrainDto> trainList = trainService.getAllTrain(fromStation, toStation, startDate);
+        List<TrainResponse> trainList = trainService.getAllTrain(fromStation, toStation, startDate);
         if (trainList == null) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Lỗi");
         if (trainList.isEmpty()) {
             return ResponseEntity
