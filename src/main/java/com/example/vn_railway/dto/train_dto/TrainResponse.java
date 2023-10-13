@@ -1,11 +1,11 @@
-package com.example.vn_railway.dto;
+package com.example.vn_railway.dto.train_dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
-import java.util.Date;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,5 +18,7 @@ public class TrainResponse {
     private Timestamp startDate;
     private Timestamp endDate;
     private Float totalDistanceLength;
+    private String fromStation;
+    private String toStation;
 
 }

@@ -1,8 +1,8 @@
 package com.example.vn_railway.service.train.impl;
 
 import com.example.vn_railway.common.FindAndHandleInEnum;
-import com.example.vn_railway.dto.ITrainDto;
-import com.example.vn_railway.dto.TrainResponse;
+import com.example.vn_railway.dto.train_dto.ITrainDto;
+import com.example.vn_railway.dto.train_dto.TrainResponse;
 import com.example.vn_railway.repository.train.ITrainRepository;
 import com.example.vn_railway.service.train.ITrainService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -80,6 +79,8 @@ public class TrainService implements ITrainService {
                                             responseTrain.setTrainId(trains.get(0).getTrainId());
                                             responseTrain.setStartDate(trains.get(0).getStartDate());
                                             responseTrain.setEndDate(trains.get(trains.size() - 1).getEndDate());
+                                            responseTrain.setFromStation(trains.get(0).getFromStation());
+                                            responseTrain.setToStation(trains.get(trains.size()-1).getToStation());
                                             responseTrain.setTrainName(trains.get(0).getTrainName());
                                             responseTrain.setFirstTripId(trains.get(0).getTripId());
                                             responseTrain.setLastTripId(trains.get(trains.size() - 1).getTripId());

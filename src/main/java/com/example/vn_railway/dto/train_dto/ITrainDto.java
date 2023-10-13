@@ -1,8 +1,7 @@
-package com.example.vn_railway.dto;
+package com.example.vn_railway.dto.train_dto;
 
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 public interface ITrainDto {
 

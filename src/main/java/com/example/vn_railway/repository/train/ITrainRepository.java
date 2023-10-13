@@ -1,6 +1,6 @@
 package com.example.vn_railway.repository.train;
 
-import com.example.vn_railway.dto.ITrainDto;
+import com.example.vn_railway.dto.train_dto.ITrainDto;
 import com.example.vn_railway.model.train.Train;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

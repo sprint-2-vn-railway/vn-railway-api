@@ -1,6 +1,6 @@
 package com.example.vn_railway.service.trip;
 
-import com.example.vn_railway.dto.ISeatDto;
+import com.example.vn_railway.dto.train_dto.ISeatDto;
 
 import java.util.List;
 

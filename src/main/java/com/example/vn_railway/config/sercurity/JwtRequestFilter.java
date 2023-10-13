@@ -24,10 +24,10 @@ class gets executed. It checks if the request has a valid JWT token. If it has a
  */
 
 @Component
-@RequiredArgsConstructor
 public class JwtRequestFilter extends OncePerRequestFilter {
+    @Autowired
     private IAppUserService appUserService;
-
+    @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)

@@ -1,9 +1,9 @@
 package com.example.vn_railway.controller;
 
 import com.example.vn_railway.common.TrainEnum;
-import com.example.vn_railway.dto.ICoachDto;
-import com.example.vn_railway.dto.ISeatDto;
-import com.example.vn_railway.dto.TrainResponse;
+import com.example.vn_railway.dto.train_dto.ICoachDto;
+import com.example.vn_railway.dto.train_dto.ISeatDto;
+import com.example.vn_railway.dto.train_dto.TrainResponse;
 import com.example.vn_railway.service.train.IChairService;
 import com.example.vn_railway.service.train.ICoachService;
 import com.example.vn_railway.service.train.ITrainService;
@@ -74,6 +74,7 @@ public class BookingController {
                     .status(HttpStatus.NO_CONTENT)
                     .body("Hiện tại không có toa tàu nào trong danh sách.");
         }
+
         return ResponseEntity
                 .ok(seatDtoList);
     }

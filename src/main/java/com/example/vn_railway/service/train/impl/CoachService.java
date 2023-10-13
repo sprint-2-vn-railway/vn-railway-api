@@ -1,12 +1,11 @@
 package com.example.vn_railway.service.train.impl;
 
-import com.example.vn_railway.dto.ICoachDto;
+import com.example.vn_railway.dto.train_dto.ICoachDto;
 import com.example.vn_railway.repository.train.ICoachRepository;
 import com.example.vn_railway.service.train.ICoachService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.Access;
 import java.util.List;
 
 @Service

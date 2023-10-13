@@ -1,4 +1,4 @@
-package com.example.vn_railway.dto;
+package com.example.vn_railway.dto.train_dto;
 
 public interface ISeatDto {
     String getSeatCode();
