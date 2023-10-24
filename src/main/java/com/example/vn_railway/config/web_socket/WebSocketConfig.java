@@ -1,20 +1,34 @@
 package com.example.vn_railway.config.web_socket;
 
-import com.example.vn_railway.common.ws.TemporaryStorageWebSocket;
+import com.example.vn_railway.dto.train_dto.SeatPayload;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.socket.config.annotation.EnableWebSocket;
-import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
-import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
+import org.springframework.messaging.simp.config.MessageBrokerRegistry;
+import org.springframework.web.socket.config.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ScheduledFuture;
+
 @Configuration
-@EnableWebSocket
-public class WebSocketConfig implements WebSocketConfigurer {
+@EnableWebSocketMessageBroker
+public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
+
     @Override
-    public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(getTemporaryStorageWebSocket(),"/data");
+    public void registerStompEndpoints(StompEndpointRegistry
+                                               registry) {
+        registry.addEndpoint("/ws")
+                .setAllowedOriginPatterns("*").withSockJS();
     }
+
+    @Override
+    public void configureMessageBroker(MessageBrokerRegistry config){
+        config.enableSimpleBroker("/topic/", "/queue/");
+        config.setApplicationDestinationPrefixes("/app");
+    }
+
     @Bean
-    public TemporaryStorageWebSocket getTemporaryStorageWebSocket(){
-        return new TemporaryStorageWebSocket();
+    public Map<SeatPayload, ScheduledFuture<?>> futureMap(){
+        return new HashMap<>();
     }
 }

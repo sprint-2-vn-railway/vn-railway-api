@@ -47,6 +47,7 @@ public class AppUserController {
                     .status(HttpStatus.UNAUTHORIZED)
                     .body(LOGIN_FAILED);
         }
+
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                     appUserDto.getUserName(), appUserDto.getPassword()));

@@ -40,4 +40,5 @@ public class AppUserService implements IAppUserService {
                 appUserDto.getPassword(),
                 grantList);
     }
+
 }

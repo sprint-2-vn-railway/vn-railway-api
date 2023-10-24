@@ -2,7 +2,6 @@ package com.example.vn_railway.config.sercurity;
 
 import com.example.vn_railway.service.user.IAppUserService;
 import io.jsonwebtoken.ExpiredJwtException;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -45,10 +44,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 username = jwtTokenUtil.getUsernameFromToken(jwtToken);
             } catch (IllegalArgumentException e) {
                 logger.warn("Unable to get JWT Token");
-
             } catch (ExpiredJwtException e) {
                 logger.warn("JWT Token has expired");
-
             }
         } else {
             logger.warn("JWT Token does not begin with Bearer String");
@@ -71,9 +68,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 // that the current user is authenticated. So it passes the
                 // Spring Security Configurations successfully.
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-
             }
-
         }
         chain.doFilter(request, response);
     }

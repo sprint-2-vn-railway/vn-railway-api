@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -61,13 +62,14 @@ public class BookingController {
         return ResponseEntity
                 .ok(coachDtoList);
     }
+
     @GetMapping("/get-seat/{coachId}/{firstTripId}/{lastTripId}")
     public ResponseEntity<?> getAllSeatOffCoach(@PathVariable(required = false) Long coachId,
                                                 @PathVariable(required = false) Long firstTripId,
                                                 @PathVariable(required = false) Long lastTripId) {
         // validate
 
-        List<ISeatDto> seatDtoList = seatService.getAllSeatByCoachId(coachId, firstTripId,lastTripId);
+        List<ISeatDto> seatDtoList = seatService.getAllSeatByCoachId(coachId, firstTripId, lastTripId);
         if (seatDtoList == null) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Lỗi");
         if (seatDtoList.isEmpty()) {
             return ResponseEntity
@@ -78,11 +80,20 @@ public class BookingController {
         return ResponseEntity
                 .ok(seatDtoList);
     }
+
     @GetMapping("/list-station")
-    public ResponseEntity<?> getAllStation(){
+    public ResponseEntity<?> getAllStation() {
         List<String> distanceList = Arrays.stream(TrainEnum.values())
                 .map(value -> value.getStation())
                 .collect(Collectors.toList());
         return ResponseEntity.ok(distanceList);
     }
+
+    @GetMapping("/clear-temporary/{userName}")
+    public ResponseEntity<?> clearTemporary(@PathVariable("userName") String userName) {
+        boolean check = seatService.clearUserIdInSeatEntity(userName);
+        if(!check) return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("clear failed");
+        return ResponseEntity.ok("clear success");
+    }
+
 }

@@ -4,4 +4,5 @@ public interface ISeatDto {
     String getSeatCode();
     Byte getAvailable();
     Long getCoachId();
+    String getUserName();
 }
