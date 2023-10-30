@@ -1,5 +1,6 @@
 package com.example.vn_railway.controller;
 
+import com.example.vn_railway.common.ChangeTime;
 import com.example.vn_railway.common.TrainEnum;
 import com.example.vn_railway.dto.train_dto.ICoachDto;
 import com.example.vn_railway.dto.train_dto.ISeatDto;
@@ -13,8 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
-import java.util.List;
+import java.text.ParseException;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -25,8 +26,7 @@ public class BookingController {
     private ITrainService trainService;
     @Autowired
     private ICoachService coachService;
-    @Autowired
-    private IChairService chairService;
+
     @Autowired
     private ISeatService seatService;
 
@@ -35,6 +35,33 @@ public class BookingController {
                                          @RequestParam(required = false) String toStation,
                                          @RequestParam(required = false) String startDate) {
         //Validate
+        Map<String, String> errMap = new HashMap<>();
+        if (fromStation == null || fromStation.trim().equals("")) {
+            errMap.put("fromStation", "Không để trống ga đi");
+        } else {
+
+        }
+
+        if (toStation == null || toStation.trim().equals("")) {
+            errMap.put("toStation", "Không để trống ga đến");
+        } else {
+
+        }
+        if (startDate == null || startDate.trim().equals("")) {
+            errMap.put("startDate", "Không để trống ngày đi");
+        } else {
+            Date now = new Date();
+            try {
+                Date date = ChangeTime.formatDateFromString(startDate);
+                if (date.before(now)) {
+                    errMap.put("startDate", "Hãy chọn ngày lớn hơn hoặc bằng hiện tại");
+                }
+            } catch (ParseException e) {
+                errMap.put("startDate", "Ngày đi không đúng định dạng");
+            }
+        }
+
+        if (!errMap.isEmpty()) return ResponseEntity.badRequest().body(errMap);
 
 
         List<TrainResponse> trainList = trainService.getAllTrain(fromStation, toStation, startDate);
@@ -92,7 +119,7 @@ public class BookingController {
     @GetMapping("/clear-temporary/{userName}")
     public ResponseEntity<?> clearTemporary(@PathVariable("userName") String userName) {
         boolean check = seatService.clearUserIdInSeatEntity(userName);
-        if(!check) return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("clear failed");
+        if (!check) return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("clear failed");
         return ResponseEntity.ok("clear success");
     }
 

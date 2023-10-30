@@ -1,6 +1,9 @@
 package com.example.vn_railway.common;
 
 
+import com.example.vn_railway.dto.qrdto.QRDto;
+import com.example.vn_railway.dto.train_dto.SeatPayload;
+import com.example.vn_railway.dto.train_dto.TicketResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.zxing.BarcodeFormat;
@@ -26,7 +29,15 @@ public class QRGenerate {
     public static String generateQRbyInformation(
             Object object, int with, int height
     ) {
-        String data = stringifyJSON(object);
+        TicketResponse ticketResponse = (TicketResponse) object;
+        QRDto qrDto = new QRDto(
+                ticketResponse.getTrainCode(),
+                ticketResponse.getCoachCode(),
+                ticketResponse.getSeatCode(),
+                ticketResponse.getStartDate(),
+                ticketResponse.getFromStation());
+
+        String data = stringifyJSON(qrDto);
         StringBuilder base64String = new StringBuilder();
         Map<EncodeHintType, Object> hints = new HashMap<>();
         hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");

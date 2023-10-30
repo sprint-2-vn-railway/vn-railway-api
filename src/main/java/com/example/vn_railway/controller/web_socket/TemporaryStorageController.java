@@ -49,7 +49,7 @@ public class TemporaryStorageController {
                             seatPayload.getFirstTripId().equals(pre.getFirstTripId()) &&
                             seatPayload.getTrainId().equals(pre.getTrainId())
             );
-            if (!check) return "limited";
+            if (!check) return "limited"+seatPayload.getUserName();
         }
         ISeatDto seatDto = seatService.getSeatByCoachIdAndCode(
                 seatPayload.getCoachId(),

@@ -20,10 +20,11 @@ public class TicketResponse {
     private String fromStation;
     private String toStation;
     private String base64StringQRCode;
-
+    private String mail;
     public TicketResponse(String trainCode, String trainName, String coachCode,
                           String typeOfCoachName, String seatCode, String startDate,
-                          String endDate, String customerName, Double price, String fromStation, String toStation) {
+                          String endDate, String customerName, Double price, String fromStation,
+                          String toStation, String mail) {
         this.trainCode = trainCode;
         this.trainName = trainName;
         this.coachCode = coachCode;
@@ -35,5 +36,6 @@ public class TicketResponse {
         this.price = price;
         this.fromStation = fromStation;
         this.toStation = toStation;
+        this.mail = mail;
     }
 }

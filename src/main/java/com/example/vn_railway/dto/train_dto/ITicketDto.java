@@ -14,4 +14,5 @@ public interface ITicketDto {
      Double getPrice();
      String getFromStation();
      String getToStation();
+     String getMail();
 }

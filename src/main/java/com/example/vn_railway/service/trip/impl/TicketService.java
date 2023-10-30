@@ -1,6 +1,6 @@
 package com.example.vn_railway.service.trip.impl;
 
-import com.example.vn_railway.common.ChangeTimeStamp;
+import com.example.vn_railway.common.ChangeTime;
 import com.example.vn_railway.dto.train_dto.ISeatResponse;
 import com.example.vn_railway.dto.train_dto.ITicketDto;
 import com.example.vn_railway.dto.train_dto.TicketResponse;
@@ -27,12 +27,13 @@ public class TicketService implements ITicketService {
                 ticketDtoList.get(0).getCoachCode(),
                 ticketDtoList.get(0).getTypeOfCoachName(),
                 ticketDtoList.get(0).getSeatCode(),
-                ChangeTimeStamp.handleChangeFormatTimeStampToString(ticketDtoList.get(0).getStartDate()),
-                ChangeTimeStamp.handleChangeFormatTimeStampToString(ticketDtoList.get(ticketDtoList.size() - 1).getEndDate()),
+                ChangeTime.handleChangeFormatTimeStampToString(ticketDtoList.get(0).getStartDate()),
+                ChangeTime.handleChangeFormatTimeStampToString(ticketDtoList.get(ticketDtoList.size() - 1).getEndDate()),
                 ticketDtoList.get(0).getCustomerName(),
                 ticketDtoList.get(0).getPrice(),
                 ticketDtoList.get(0).getFromStation(),
-                ticketDtoList.get(ticketDtoList.size() - 1).getToStation()
+                ticketDtoList.get(ticketDtoList.size() - 1).getToStation(),
+                ticketDtoList.get(0).getMail()
         );
     }
 }

@@ -3,6 +3,7 @@ package com.example.vn_railway.service.train.impl;
 import com.example.vn_railway.common.FindAndHandleInEnum;
 import com.example.vn_railway.dto.train_dto.ITrainDto;
 import com.example.vn_railway.dto.train_dto.TrainResponse;
+import com.example.vn_railway.model.train.Train;
 import com.example.vn_railway.repository.train.ITrainRepository;
 import com.example.vn_railway.service.train.ITrainService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,6 +110,11 @@ public class TrainService implements ITrainService {
 
         }
         return trainResponseList;
+    }
+
+    @Override
+    public List<Train> findAllTrain() {
+        return trainRepository.findAll();
     }
 
 }

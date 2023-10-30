@@ -20,9 +20,6 @@ public class SeatService implements ISeatService {
 
     @Override
     public List<ISeatDto> getAllSeatByCoachId(Long coachId, Long firstTripId, Long lastTripId) {
-
-
-
         return seatRepository.findAllSeatByCoachId(coachId, firstTripId, lastTripId);
     }
 

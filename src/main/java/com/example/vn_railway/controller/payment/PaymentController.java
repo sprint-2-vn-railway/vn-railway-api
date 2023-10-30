@@ -1,5 +1,6 @@
 package com.example.vn_railway.controller.payment;
 
+import com.example.vn_railway.common.GMailSender;
 import com.example.vn_railway.common.QRGenerate;
 import com.example.vn_railway.config.vn_pay.VNPayConfig;
 import com.example.vn_railway.dto.payment.VNPayResponse;
@@ -28,6 +29,7 @@ public class PaymentController {
     private final ISeatService seatService;
     private final ITicketService ticketService;
     private final Map<SeatPayload, ScheduledFuture<?>> futureMap;
+    private final GMailSender mailSender;
     @GetMapping("/vn-pay/create/{userName}")
     public ResponseEntity<?> createPayment(@PathVariable(value = "userName", required = false) String userName) throws UnsupportedEncodingException {
 
@@ -35,11 +37,11 @@ public class PaymentController {
 //        long amount = Integer.parseInt(req.getParameter("amount"))*100;
 //        String bankCode = req.getParameter("bankCode");
         List<ISeatResponse> seatResponseList = seatService.getAllSeatByUserName(userName);
-        if(seatResponseList == null || seatResponseList.isEmpty()) {
+        if (seatResponseList == null || seatResponseList.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
 
-        long price = (long)seatResponseList.stream()
+        long price = (long) seatResponseList.stream()
                 .mapToDouble(seat -> seat.getPrice() * seat.getTotalDistance())
                 .sum();
 
@@ -104,16 +106,16 @@ public class PaymentController {
     }
 
     @GetMapping("/pay-success/{userName}")
-    public ResponseEntity<?> handlePaymentSuccess(@PathVariable(value = "userName",required = false) String userName,
-                                                  @RequestParam(value = "responseCode",required = false) String responseCode){
+    public ResponseEntity<?> handlePaymentSuccess(@PathVariable(value = "userName", required = false) String userName,
+                                                  @RequestParam(value = "responseCode", required = false) String responseCode) {
         // Check param
-        if(responseCode == null || !responseCode.equals("00")){
+        if (responseCode == null || !responseCode.equals("00")) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Thanh toán không thành công");
         }
 
         // get data in temporary
         List<ISeatResponse> seatResponseList = seatService.getAllSeatByUserName(userName);
-        if(seatResponseList == null || seatResponseList.size() == 0){
+        if (seatResponseList == null || seatResponseList.size() == 0) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("NOT FOUND");
         }
 
@@ -125,6 +127,13 @@ public class PaymentController {
                     QRGenerate.generateQRbyInformation(ticketResponse, 250, 250));
             ticketResponseList.add(ticketResponse);
         }
+
+
+        // Gửi mail
+        StringBuilder sb = new StringBuilder("Cảm ơn bạn đã sử dụng dịch vụ của Công ty cổ phần Đường Sắt Việt Nam. Đây là vé của bạn, xin cảm ơn");
+        String result = mailSender.generateHTMLForMail(ticketResponseList);
+        mailSender.sendEmail(sb.append(result),ticketResponseList.get(0).getMail());
+
 
         return ResponseEntity.ok(ticketResponseList);
     }
