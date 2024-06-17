@@ -75,15 +75,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                         //All role
                         "/api/user/**",
-                        "/ws/**"
-                ).permitAll()
-                .antMatchers(
-                "/api/payment/**",
+                        "/ws/**",
+                        "/api/payment/**",
                         "/api/train/**",
                         "/seat/**",
                         "/api/booking/**",
                         "/api/distance/**"
 
+                ).permitAll()
+                .antMatchers(
+                        
 
                 ).hasAnyAuthority("ROLE_ADMIN","ROLE_CUSTOMER")
                 .antMatchers(

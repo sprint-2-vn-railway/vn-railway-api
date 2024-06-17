@@ -16,8 +16,10 @@ public class Seat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(columnDefinition = "varchar(20)",unique = true)
+    @Column(columnDefinition = "varchar(20)")
     private String code;
+    @Column()
+    private Boolean available;
     @ManyToOne
     @JoinColumn(name = "coach_id",referencedColumnName = "id")
     private Coach coach;
