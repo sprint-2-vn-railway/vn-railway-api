@@ -19,5 +19,5 @@ For building and running the application you need:
 ```
 
 ```shell
-java -jar application.jar
+java -jar build/libs/vn_railway-0.0.1-SNAPSHOT.jar
 ```
